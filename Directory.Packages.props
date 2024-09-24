@@ -46,6 +46,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfCoreVersion8)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfCoreVersion8)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion8)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfCoreVersion8)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.HierarchyId" Version="$(EfCoreVersion8)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="$(EfCoreVersion8)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
@@ -62,6 +65,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion9)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfCoreVersion9)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.HierarchyId" Version="$(EfCoreVersion9)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
   </ItemGroup>
