@@ -6131,6 +6131,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
             <summary>
             The callback to invoke when a menu item is chosen.
+            Using this event prevents the execution of any OnClick event on an included FluentMenuItem.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ClassValue">
@@ -13967,7 +13968,7 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Color">
             <summary>
             Color variant of FluentUI System Icons
-            > Note: FOR TESTING ONLY. This variant is not supported yet in the FluentUI System Icons.
+            > Note: FOR TESTING PURPOSES ONLY. Not yet fully supported.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.InputFileMode">
