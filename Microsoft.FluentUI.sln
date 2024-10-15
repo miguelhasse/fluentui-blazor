@@ -51,6 +51,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdventureWorks", "Adventure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.AdventureWorks.Server", "examples\AdventureWorks\FluentUI.AdventureWorks.Server.csproj", "{E1F637E1-4497-4D55-A563-D1463B6CB5E3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client", "src\Extensions\DataGrid.OData.Client\Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client.csproj", "{D15E5AC8-E4F0-4B3D-9152-DA499D6B5C95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TripPin", "TripPin", "{8C8DA780-3971-4B42-8E19-5CEA27EBA43A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.TripPin.Client", "examples\TripPin\FluentUI.TripPin.Client.csproj", "{7B657473-9BE9-4AEF-800B-835C33AC5AB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +113,14 @@ Global
 		{E1F637E1-4497-4D55-A563-D1463B6CB5E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1F637E1-4497-4D55-A563-D1463B6CB5E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1F637E1-4497-4D55-A563-D1463B6CB5E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15E5AC8-E4F0-4B3D-9152-DA499D6B5C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15E5AC8-E4F0-4B3D-9152-DA499D6B5C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15E5AC8-E4F0-4B3D-9152-DA499D6B5C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15E5AC8-E4F0-4B3D-9152-DA499D6B5C95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B657473-9BE9-4AEF-800B-835C33AC5AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B657473-9BE9-4AEF-800B-835C33AC5AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B657473-9BE9-4AEF-800B-835C33AC5AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B657473-9BE9-4AEF-800B-835C33AC5AB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +146,9 @@ Global
 		{2A9638B8-C6D0-455C-B6B1-72D734664973} = {E7FD7A3C-3C34-4DF6-961F-D731B0164CE4}
 		{F5BF6FC5-C9EF-4915-9759-BEF9CFDECA5A} = {141FEF3E-C665-4D50-8E51-B9507C98040E}
 		{E1F637E1-4497-4D55-A563-D1463B6CB5E3} = {F5BF6FC5-C9EF-4915-9759-BEF9CFDECA5A}
+		{D15E5AC8-E4F0-4B3D-9152-DA499D6B5C95} = {1199ECBA-EE19-44CD-A471-85AB2F44489C}
+		{8C8DA780-3971-4B42-8E19-5CEA27EBA43A} = {141FEF3E-C665-4D50-8E51-B9507C98040E}
+		{7B657473-9BE9-4AEF-800B-835C33AC5AB9} = {8C8DA780-3971-4B42-8E19-5CEA27EBA43A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420693A7-C2FD-498C-8E78-4B65CC25389A}

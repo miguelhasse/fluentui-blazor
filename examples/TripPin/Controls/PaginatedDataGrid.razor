@@ -34,7 +34,7 @@
 
     protected override void OnParametersSet()
     {
-        _pagination = Virtualize ? null : new PaginationState { ItemsPerPage = 20 };
+        _pagination = Virtualize ? null : new PaginationState { ItemsPerPage = 10 };
     }
 
     public void SetLoadingState(bool loading) => _grid?.SetLoadingState(loading);
