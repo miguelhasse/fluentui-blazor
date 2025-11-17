@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11010.61 d18.0
+VisualStudioVersion = 18.0.11010.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{141FEF3E-C665-4D50-8E51-B9507C98040E}"
 EndProject
@@ -44,6 +44,10 @@ EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Microsoft.FluentUI.AspNetCore.Components.Assets", "src\Core.Assets\Microsoft.FluentUI.AspNetCore.Components.Assets.esproj", "{292081C2-5076-467C-AEFF-12DC0617531A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter", "src\Extensions\DataGrid.ODataAdapter\Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj", "{AFFDA282-83AB-44FA-B400-C935BBFE3308}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.AdventureWorks.Server", "examples\AdventureWorks\FluentUI.AdventureWorks.Server.csproj", "{2C4DE387-1738-1648-55DD-E8548FBCDEA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.TripPin.Client", "examples\TripPin\FluentUI.TripPin.Client.csproj", "{0E211D4D-2C00-567B-61A0-B014E779D22A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +105,14 @@ Global
 		{AFFDA282-83AB-44FA-B400-C935BBFE3308}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFFDA282-83AB-44FA-B400-C935BBFE3308}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFFDA282-83AB-44FA-B400-C935BBFE3308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C4DE387-1738-1648-55DD-E8548FBCDEA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C4DE387-1738-1648-55DD-E8548FBCDEA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C4DE387-1738-1648-55DD-E8548FBCDEA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C4DE387-1738-1648-55DD-E8548FBCDEA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E211D4D-2C00-567B-61A0-B014E779D22A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E211D4D-2C00-567B-61A0-B014E779D22A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E211D4D-2C00-567B-61A0-B014E779D22A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E211D4D-2C00-567B-61A0-B014E779D22A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +136,8 @@ Global
 		{E4E62EAA-38FC-48FE-B63E-EB4ABAD660D2} = {17F26C55-E329-4117-B64D-0393E912FFFE}
 		{292081C2-5076-467C-AEFF-12DC0617531A} = {DF88C07D-46D7-4DEC-ACE4-409217634E57}
 		{AFFDA282-83AB-44FA-B400-C935BBFE3308} = {1199ECBA-EE19-44CD-A471-85AB2F44489C}
+		{2C4DE387-1738-1648-55DD-E8548FBCDEA3} = {141FEF3E-C665-4D50-8E51-B9507C98040E}
+		{0E211D4D-2C00-567B-61A0-B014E779D22A} = {141FEF3E-C665-4D50-8E51-B9507C98040E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420693A7-C2FD-498C-8E78-4B65CC25389A}

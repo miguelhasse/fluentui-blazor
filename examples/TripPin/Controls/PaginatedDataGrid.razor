@@ -1,0 +1,51 @@
+﻿@typeparam TGridItem
+
+<FluentStack Orientation="Orientation.Vertical" Style="@(Virtualize ? "height:400px;display:flex;" : "display:flex;")">
+    <FluentDataGrid @ref="_grid" TGridItem="@TGridItem" Items="@Items" Pagination="@_pagination" Virtualize="@Virtualize" HandleLoadingError="@(ex => true)" Loading="true" ResizableColumns="true" Style="width:100%;overflow-x:auto;">
+        <ChildContent>
+            @if (SelectMode.HasValue)
+            {
+                <SelectColumn TGridItem="@TGridItem" @bind-SelectedItems="@SelectedItems" SelectMode="@SelectMode.Value" SelectFromEntireRow="true" />
+            }
+            @ChildContent
+        </ChildContent>
+        <ErrorContent>
+            <span @onclick="() => RefreshDataAsync()" style="cursor:pointer">
+                Error occurred  while loading data. Click here to retry.
+            </span>
+        </ErrorContent>
+    </FluentDataGrid>
+@if (_pagination != null)
+{
+    <FluentPaginator State="@_pagination" Style="width:100%" Disabled="@(_grid?.Loading ?? false)" />
+}
+</FluentStack>
+
+@code {
+    private FluentDataGrid<TGridItem> _grid = default!;
+    private PaginationState? _pagination;
+
+    [Parameter]
+    public IQueryable<TGridItem>? Items { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public DataGridSelectMode? SelectMode { get; set; }
+
+    [Parameter]
+    public IEnumerable<TGridItem> SelectedItems { get; set; } = [];
+
+    [Parameter]
+    public bool Virtualize { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        _pagination = Virtualize ? null : new PaginationState { ItemsPerPage = 10 };
+    }
+
+    public void SetLoadingState(bool loading) => _grid?.SetLoadingState(loading);
+
+    public Task RefreshDataAsync() => _grid?.RefreshDataAsync() ?? Task.CompletedTask;
+}
