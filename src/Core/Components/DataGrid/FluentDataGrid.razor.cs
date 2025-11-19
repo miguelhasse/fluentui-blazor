@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.DependencyInjection;
@@ -909,7 +908,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             if (ItemsProvider is not null)
             {
                 var gipr = await ItemsProvider(request);
-                if (gipr.Items is not null && Loading != false)
+                if (gipr.Items is not null && Loading is null)
                 {
                     Loading = false;
                     StateHasChanged();
