@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.DependencyInjection;
@@ -376,6 +377,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // async query APIs that might be available. We have built-in support for using EF Core's async query APIs.
     private IAsyncQueryExecutor? _asyncQueryExecutor;
     private AsyncServiceScope? _scope;
+    private bool _asyncQueryExecuted;
 
     // We cascade the InternalGridContext to descendants, which in turn call it to add themselves to _columns
     // This happens on every render so that the column list can be updated dynamically
@@ -483,11 +485,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(_scope.Value.ServiceProvider, Items);
+            _asyncQueryExecuted = false;
         }
 
         var paginationStateHasChanged =
             Pagination?.ItemsPerPage != _lastRefreshedPaginationState?.ItemsPerPage
             || Pagination?.CurrentPageIndex != _lastRefreshedPaginationState?.CurrentPageIndex;
+
+        if (Loading == true && _asyncQueryExecutor is not null && _asyncQueryExecuted)
+        {
+            Loading = false; // switch to uncontrolled loading state after first IAsyncQueryExecutor completes
+        }
 
         var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged || EffectiveLoadingValue;
 
@@ -865,7 +873,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
             }
-            if ((_internalGridContext.TotalItemCount > 0 && Loading is null) || _lastError != null)
+            if ((_internalGridContext.TotalItemCount > 0 && Loading != false) || _lastError != null)
             {
                 Loading = false;
                 StateHasChanged();
@@ -895,7 +903,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             if (ItemsProvider is not null)
             {
                 var gipr = await ItemsProvider(request);
-                if (gipr.Items is not null && Loading is null)
+                if (gipr.Items is not null && Loading != false)
                 {
                     Loading = false;
                     StateHasChanged();
@@ -939,11 +947,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             if (Items is not null && _asyncQueryExecutor is not null)
             {
-                if (Loading == true)
-                {
-                    Loading = false;
-                    StateHasChanged();
-                }
+                Loading = false;
+                _asyncQueryExecuted = true;
                 await OnItemsLoading.InvokeAsync(false);
             }
         }
