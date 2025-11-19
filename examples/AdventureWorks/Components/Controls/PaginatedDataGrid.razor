@@ -5,7 +5,7 @@
         <ChildContent>
             @if (SelectMode.HasValue)
             {
-                <SelectColumn TGridItem="@TGridItem" @bind-SelectedItems="@SelectedItems" SelectMode="@SelectMode.Value" SelectFromEntireRow="true" />
+                <SelectColumn TGridItem="@TGridItem" @bind-SelectedItems="@SelectedItems" Comparer="@Comparer" SelectMode="@SelectMode.Value" SelectFromEntireRow="true" />
             }
             @ChildContent
         </ChildContent>
@@ -36,6 +36,9 @@
 
     [Parameter]
     public IEnumerable<TGridItem> SelectedItems { get; set; } = [];
+
+    [Parameter]
+    public IEqualityComparer<TGridItem>? Comparer { get; set; } = null;
 
     [Parameter]
     public bool Virtualize { get; set; }
