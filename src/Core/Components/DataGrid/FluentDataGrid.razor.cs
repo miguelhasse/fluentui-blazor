@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.DependencyInjection;
@@ -903,7 +902,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             if (ItemsProvider is not null)
             {
                 var gipr = await ItemsProvider(request);
-                if (gipr.Items is not null && Loading != false)
+                if (gipr.Items is not null && Loading is null)
                 {
                     Loading = false;
                     StateHasChanged();
@@ -912,13 +911,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
             else if (Items is not null)
             {
-                if (_asyncQueryExecutor is not null)
-                {
-                    await OnItemsLoading.InvokeAsync(true);
-                }
-                var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
-                _internalGridContext.TotalItemCount = totalItemCount;
-                IQueryable<TGridItem>? result;
+                var result = Items;
                 if (RefreshItems is null)
                 {
                     result = request.ApplySorting(Items).Skip(request.StartIndex);
@@ -927,12 +920,24 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                         result = result.Take(request.Count.Value);
                     }
                 }
+                if (_asyncQueryExecutor is not null)
+                {
+                    await OnItemsLoading.InvokeAsync(true);
+                    var totalItemCount = await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
+                    var resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+
+                    Loading = false;
+                    _asyncQueryExecuted = true;
+                    _internalGridContext.TotalItemCount = totalItemCount;
+
+                    return GridItemsProviderResult.From(resultArray, totalItemCount);
+                }
                 else
                 {
-                    result = Items;
+                    var totalItemCount = Items.Count();
+                    _internalGridContext.TotalItemCount = totalItemCount;
+                    return GridItemsProviderResult.From([.. result], totalItemCount);
                 }
-                var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
-                return GridItemsProviderResult.From(resultArray, totalItemCount);
             }
         }
         catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken)
@@ -947,8 +952,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             if (Items is not null && _asyncQueryExecutor is not null)
             {
-                Loading = false;
-                _asyncQueryExecuted = true;
                 await OnItemsLoading.InvokeAsync(false);
             }
         }
