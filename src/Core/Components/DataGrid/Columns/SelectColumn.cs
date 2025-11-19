@@ -209,6 +209,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     [Parameter]
     public override IGridSort<TGridItem>? SortBy { get; set; }
 
+    [Parameter]
+    public IEqualityComparer<TGridItem>? Comparer { get; set; } = null;
+
     /// <summary>
     /// Gets or sets the equality comparer used to determine whether two grid items are equal.
     /// </summary>
