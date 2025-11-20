@@ -305,8 +305,15 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
                 {
                     return;
                 }
-
-                _selectedItems.Remove(item);
+                if (Comparer != null)
+                {
+                    var toRemove = _selectedItems.First(i => Comparer.Equals(i, item));
+                    _selectedItems.Remove(toRemove);
+                }
+                else
+                {
+                    _selectedItems.Remove(item);
+                }
                 SelectAll = false;
                 await CallOnSelectAsync(item, false);
             }
