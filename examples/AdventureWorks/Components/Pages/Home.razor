@@ -87,6 +87,12 @@
         var propertyNames = entityType.FindPrimaryKey()?.Properties.Select(p => p.Name).ToArray();
         var clrType = entityType.ClrType;
 
+        // If no primary key, use all properties
+        propertyNames ??= entityType.GetProperties()
+            .Where(p => !p.IsConcurrencyToken && !p.IsShadowProperty())
+            .Select(p => p.Name)
+            .ToArray();
+
         if (propertyNames == null || propertyNames.Length == 0)
             return null;
 
