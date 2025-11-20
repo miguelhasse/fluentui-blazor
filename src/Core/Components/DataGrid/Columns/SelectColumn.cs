@@ -526,15 +526,8 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
             {
                 return true;
             }
-            else
-            {
-                return null;
-            }
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     /// <inheritdoc />
