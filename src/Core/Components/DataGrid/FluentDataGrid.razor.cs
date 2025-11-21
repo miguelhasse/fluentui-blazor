@@ -412,6 +412,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // things have changed, and to discard earlier load attempts that were superseded.
     private PaginationState? _lastRefreshedPaginationState;
     private IQueryable<TGridItem>? _lastAssignedItems;
+    private bool? _lastVirtualizationMode;
 
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
@@ -491,6 +492,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             Pagination?.ItemsPerPage != _lastRefreshedPaginationState?.ItemsPerPage
             || Pagination?.CurrentPageIndex != _lastRefreshedPaginationState?.CurrentPageIndex;
 
+        if (_lastVirtualizationMode != Virtualize)
+        {
+            _lastVirtualizationMode = Virtualize;
+            _asyncQueryExecuted = false;
+        }
         if (Loading == true && _asyncQueryExecutor is not null && _asyncQueryExecuted)
         {
             Loading = false; // switch to uncontrolled loading state after first IAsyncQueryExecutor completes
