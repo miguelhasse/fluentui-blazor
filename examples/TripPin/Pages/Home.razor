@@ -76,7 +76,7 @@
     {
         var propertyNames = entitySet.EntityType.DeclaredKey.Any()
             ? entitySet.EntityType.DeclaredKey.Select(p => p.Name).ToArray()
-            : entitySet.EntityType.DeclaredProperties.Select(p => p.Name).ToArray();
+            : entitySet.EntityType.DeclaredProperties.Where(p => !p.Type.IsCollection() && !p.Type.IsComplex()).Select(p => p.Name).ToArray();
         var clrType = resolveType(entitySet.EntityType.FullTypeName());
         
         if (propertyNames.Length == 0 || clrType == null)
