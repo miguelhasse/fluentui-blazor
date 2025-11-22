@@ -74,10 +74,12 @@
 
     public static object? BuildEqualityComparer(IEdmEntitySet entitySet, Func<string, Type> resolveType)
     {
-        var propertyNames = entitySet.EntityType.DeclaredKey.Select(p => p.Name).ToArray();
+        var propertyNames = entitySet.EntityType.DeclaredKey.Any()
+            ? entitySet.EntityType.DeclaredKey.Select(p => p.Name).ToArray()
+            : entitySet.EntityType.DeclaredProperties.Select(p => p.Name).ToArray();
         var clrType = resolveType(entitySet.EntityType.FullTypeName());
         
-        if (propertyNames == null || propertyNames.Length == 0 || clrType == null)
+        if (propertyNames.Length == 0 || clrType == null)
             return null;
 
         var parameter = Expression.Parameter(clrType, "x");
