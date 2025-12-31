@@ -56,7 +56,6 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.HierarchyId" Version="$(EfCoreVersion8)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="$(EfCoreVersion8)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.6" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net9.0'">
     <!-- Build dependencies -->
@@ -76,7 +75,6 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.HierarchyId" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion9)" />
-    <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net10.0'">
     <!-- Build dependencies -->
@@ -97,6 +95,5 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.HierarchyId" Version="$(EfCoreVersion10)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="$(EfCoreVersion10)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion10)" />
-    <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
   </ItemGroup>
 </Project>

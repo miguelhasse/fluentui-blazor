@@ -18,7 +18,6 @@
     <PackageReference Include="Microsoft.OData.Client" />
     <PackageReference Include="Microsoft.OData.Extensions.Client" />
     <PackageReference Include="System.ComponentModel.Annotations" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>
