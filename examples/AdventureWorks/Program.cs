@@ -1,5 +1,6 @@
 using FluentUI.AdventureWorks.Server.Components;
 using FluentUI.AdventureWorks.Server.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
 
@@ -9,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddFluentUIComponents()
-    .AddDataGridEntityFrameworkAdapter();
+    .AddDataGridEntityFrameworkAdapter(ex => ex is SqlException sqlEx && sqlEx.Errors.OfType<SqlError>()
+        .Any(e => (e.Class == 11 && e.Number == 0) || (e.Class == 16 && e.Number == 3204)));
 
 builder.Services.AddPooledDbContextFactory<AdventureWorksContext>(options =>
 {
