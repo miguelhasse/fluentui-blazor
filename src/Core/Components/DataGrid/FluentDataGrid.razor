@@ -52,7 +52,7 @@
                 {
                     @if (Virtualize)
                     {
-                        if (_internalGridContext.TotalItemCount == 0)
+                        if (_internalGridContext.TotalItemCount == 0 && _virtualizeComponent is not null)
                         {
                             @_renderEmptyContent
                         }
@@ -65,7 +65,7 @@
                                         ItemsProvider="@ProvideVirtualizedItemsAsync"
                                         ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
                                         Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))"
-                                        SpacerElement="tr"/>
+                                        SpacerElement="tr" />
                         }
                     }
                     else
