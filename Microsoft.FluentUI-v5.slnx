@@ -1,6 +1,9 @@
 <Solution>
   <Folder Name="/eng/" />
-  <Folder Name="/examples/" />
+  <Folder Name="/examples/">
+    <Project Path="examples/AdventureWorks/FluentUI.AdventureWorks.Server.csproj" />
+    <Project Path="examples/TripPin/FluentUI.TripPin.Client.csproj" />
+  </Folder>
   <Folder Name="/examples/demo/">
     <Project Path="examples/Demo/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj" />
     <Project Path="examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" />
@@ -35,6 +38,10 @@
     </Project>
     <Project Path="src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" />
   </Folder>
+  <Folder Name="/src/Extensions/">
+    <Project Path="src/Extensions/DataGrid.EntityFrameworkAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj" />
+    <Project Path="src/Extensions/DataGrid.ODataAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj" />
+  </Folder>
   <Folder Name="/src/Tools/">
     <Project Path="src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" />
   </Folder>
@@ -43,6 +50,10 @@
     <Project Path="tests/Integration/Components.IntegrationTests.csproj">
       <Build Solution="Debug|*" Project="false" />
     </Project>
+  </Folder>
+  <Folder Name="/tests/Extensions/">
+    <Project Path="tests/Extensions/DataGrid.EntityFrameworkAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.Tests.csproj" />
+    <Project Path="tests/Extensions/DataGrid.ODataAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/Tools/">
     <Project Path="tests/Tools/McpServer.Tests/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj" />
