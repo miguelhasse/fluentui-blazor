@@ -1,0 +1,35 @@
+﻿@rendermode InteractiveServer
+
+@using FluentUI.AdventureWorks.Server.Data
+@using Microsoft.EntityFrameworkCore
+
+<div class="navmenu">
+    <nav class="sitenav" aria-labelledby="main-menu">
+        <FluentNav Id="main-menu">
+        @foreach (var schema in _schemas)
+        {
+            <FluentNavCategory Title="@schema.Key" IconRest="@(new Icons.Regular.Size20.TableMultiple())">
+            @foreach (var entity in schema)
+            {
+                <FluentNavItem Href="@($"/?entity={entity.Key}.{entity.Value}")" IconRest="@(new Icons.Regular.Size20.Table())">@entity.Value</FluentNavItem>
+            }
+            </FluentNavCategory>
+        }
+        </FluentNav>
+    </nav>
+</div>
+
+@code {
+    private IEnumerable<IGrouping<string, KeyValuePair<string, string>>> _schemas = [];
+
+    [Inject]
+    private IDbContextFactory<AdventureWorksContext> DataContextFactory { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = await DataContextFactory.CreateDbContextAsync();
+        _schemas = context.Model.GetEntityTypes()
+            .Select(s => KeyValuePair.Create(s.GetSchema() ?? "dbo", s.GetTableName() ?? s.GetViewName()!))
+            .GroupBy(s => s.Key).OrderBy(s => s.Key);
+    }
+}

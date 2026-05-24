@@ -1,4 +1,4 @@
-## About
+## About 
 
 Use this package if the data you want to display in the `FluentDataGrid` (component in the `Microsoft.FluentUI.AspNetCore.Components library`) comes from EF Core:
 

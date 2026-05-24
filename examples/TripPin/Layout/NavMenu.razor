@@ -1,0 +1,28 @@
+﻿@using FluentUI.TripPin.Model
+@using Microsoft.OData.Edm
+
+<div class="navmenu">
+    <nav class="sitenav" aria-labelledby="main-menu">
+        <FluentNav Id="main-menu">
+            @foreach (var name in _elements)
+            {
+                <FluentNavItem Href="@($"/?entity={name}")" IconRest="@(new Icons.Regular.Size20.Table())">@name</FluentNavItem>
+            }
+        </FluentNav>
+    </nav>
+</div>
+
+@code {
+    private IEnumerable<string> _elements = [];
+
+    [Inject]
+    private Container Container { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        var model = Container.Format.LoadServiceModel();
+        _elements = model.EntityContainer.Elements
+            .Where(s => s.ContainerElementKind == EdmContainerElementKind.EntitySet)
+            .Select(s => s.Name);
+    }
+}
