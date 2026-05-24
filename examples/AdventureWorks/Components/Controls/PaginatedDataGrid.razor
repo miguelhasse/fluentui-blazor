@@ -1,0 +1,57 @@
+﻿@typeparam TGridItem
+
+<div class="datagrid-container">
+    <div class="datagrid-scroll">
+        <FluentDataGrid @ref="_grid" TGridItem="@TGridItem" Items="@Items" Pagination="@_pagination" Virtualize="@Virtualize"
+            HandleLoadingError="@(ex => true)" Loading="true" ResizableColumns="true" RowSize="DataGridRowSize.Small" AutoItemsPerPage="true" Style="width:100%;">
+            <ChildContent>
+                @if (SelectMode.HasValue)
+                {
+                    <SelectColumn TGridItem="@TGridItem" @bind-SelectedItems="@SelectedItems" Comparer="@Comparer" SelectMode="@SelectMode.Value" SelectFromEntireRow="true" />
+                }
+                @ChildContent
+            </ChildContent>
+            <ErrorContent>
+                <span @onclick="() => RefreshDataAsync()" style="cursor:pointer">
+                    Error occurred  while loading data. Click here to retry.
+                </span>
+            </ErrorContent>
+        </FluentDataGrid>
+    </div>
+    @if (_pagination != null)
+    {
+        <FluentPaginator State="@_pagination" Style="width:100%" Disabled="@(_grid?.Loading ?? false)" />
+    }
+</div>
+
+@code {
+    private FluentDataGrid<TGridItem> _grid = default!;
+    private PaginationState? _pagination;
+
+    [Parameter]
+    public IQueryable<TGridItem>? Items { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public DataGridSelectMode? SelectMode { get; set; }
+
+    [Parameter]
+    public IEnumerable<TGridItem> SelectedItems { get; set; } = [];
+
+    [Parameter]
+    public IEqualityComparer<TGridItem>? Comparer { get; set; } = null;
+
+    [Parameter]
+    public bool Virtualize { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        _pagination = Virtualize ? null : new PaginationState { ItemsPerPage = 20 };
+    }
+
+    public void SetLoadingState(bool loading) => _grid?.SetLoadingState(loading);
+
+    public Task RefreshDataAsync() => _grid?.RefreshDataAsync() ?? Task.CompletedTask;
+}
