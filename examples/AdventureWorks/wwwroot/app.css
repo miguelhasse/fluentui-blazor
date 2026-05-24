@@ -33,12 +33,12 @@ nav.sitenav {
     background-color: white;
   }
 
-  nav h2 {
+nav h2 {
     font-size: var(--type-ramp-plus-1-font-size);
     line-height: var(--type-ramp-plus-1-line-height);
     margin: 0;
     pointer-events: none;
-  }
+}
 
 nav h3 {
     font-size: var(--type-ramp-base-font-size);

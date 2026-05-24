@@ -44,8 +44,11 @@ internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreEx
         }
         catch (ObjectDisposedException)
         {
+            return default!;
         }
+        catch (Exception ex) when (ex is not OperationCanceledException && ignoreException?.Invoke(ex) == true)
         {
+            return default!;
         }
     }
 
