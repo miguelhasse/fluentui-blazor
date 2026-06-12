@@ -38,7 +38,7 @@ nav h2 {
     line-height: var(--type-ramp-plus-1-line-height);
     margin: 0;
     pointer-events: none;
-}
+  }
 
 nav h3 {
     font-size: var(--type-ramp-base-font-size);
