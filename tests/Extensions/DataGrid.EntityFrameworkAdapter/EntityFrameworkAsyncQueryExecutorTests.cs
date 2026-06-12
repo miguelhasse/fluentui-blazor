@@ -61,9 +61,9 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
             new TestEntity { Id = 1, Name = "A" },
             new TestEntity { Id = 2, Name = "B" },
             new TestEntity { Id = 3, Name = "C" });
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-        var count = await _interface.CountAsync(_dbContext.Entities);
+        var count = await _interface.CountAsync(_dbContext.Entities, TestContext.Current.CancellationToken);
 
         Assert.Equal(3, count);
     }
@@ -74,9 +74,9 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
         _dbContext.Entities.AddRange(
             new TestEntity { Id = 1, Name = "A" },
             new TestEntity { Id = 2, Name = "B" });
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-        var result = await _interface.ToArrayAsync(_dbContext.Entities);
+        var result = await _interface.ToArrayAsync(_dbContext.Entities, TestContext.Current.CancellationToken);
 
         Assert.Equal(2, result.Length);
         Assert.Contains(result, e => e.Name == "A");
@@ -87,7 +87,7 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
     public async Task CountAsync_WhenPreCancelledToken_ThrowsOperationCanceledException()
     {
         _dbContext.Entities.Add(new TestEntity { Id = 1, Name = "A" });
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         using var cts = new CancellationTokenSource();
         cts.Cancel();
@@ -99,7 +99,7 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
     public async Task ToArrayAsync_WhenPreCancelledToken_ThrowsOperationCanceledException()
     {
         _dbContext.Entities.Add(new TestEntity { Id = 1, Name = "A" });
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         using var cts = new CancellationTokenSource();
         cts.Cancel();
@@ -111,14 +111,14 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
     public async Task ToArrayAsync_WhenDisposed_ReturnsDefault()
     {
         _dbContext.Entities.Add(new TestEntity { Id = 1, Name = "A" });
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         using var executor = new EntityFrameworkAsyncQueryExecutor();
         IAsyncQueryExecutor iface = executor;
         ((IDisposable)executor).Dispose();
 
         // ObjectDisposedException from the disposed SemaphoreSlim should be swallowed
-        var result = await iface.ToArrayAsync(_dbContext.Entities);
+        var result = await iface.ToArrayAsync(_dbContext.Entities, TestContext.Current.CancellationToken);
 
         Assert.Equal(default, result);
     }
@@ -132,7 +132,7 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
 
         IQueryable<TestEntity> query = new ThrowingQueryable<TestEntity>(thrownException);
 
-        var result = await iface.ToArrayAsync(query);
+        var result = await iface.ToArrayAsync(query, TestContext.Current.CancellationToken);
 
         Assert.Equal(default, result);
     }
@@ -146,7 +146,7 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
 
         IQueryable<TestEntity> query = new ThrowingQueryable<TestEntity>(thrownException);
 
-        var caughtEx = await Assert.ThrowsAnyAsync<Exception>(() => iface.ToArrayAsync(query));
+        var caughtEx = await Assert.ThrowsAnyAsync<Exception>(() => iface.ToArrayAsync(query, TestContext.Current.CancellationToken));
         Assert.Same(thrownException, caughtEx);
     }
 
@@ -154,14 +154,14 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
     public async Task CountAsync_WhenDisposed_ReturnsDefault()
     {
         _dbContext.Entities.Add(new TestEntity { Id = 1, Name = "A" });
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         using var executor = new EntityFrameworkAsyncQueryExecutor();
         IAsyncQueryExecutor iface = executor;
         ((IDisposable)executor).Dispose();
 
         // ObjectDisposedException from the disposed SemaphoreSlim should be swallowed
-        var result = await iface.CountAsync(_dbContext.Entities);
+        var result = await iface.CountAsync(_dbContext.Entities, TestContext.Current.CancellationToken);
 
         Assert.Equal(default, result);
     }
@@ -177,7 +177,7 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
 
         IQueryable<TestEntity> query = new ThrowingQueryable<TestEntity>(thrownException);
 
-        var result = await iface.CountAsync(query);
+        var result = await iface.CountAsync(query, TestContext.Current.CancellationToken);
 
         Assert.Equal(default, result);
     }
@@ -191,7 +191,7 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
 
         IQueryable<TestEntity> query = new ThrowingQueryable<TestEntity>(thrownException);
 
-        var caughtEx = await Assert.ThrowsAnyAsync<Exception>(() => iface.CountAsync(query));
+        var caughtEx = await Assert.ThrowsAnyAsync<Exception>(() => iface.CountAsync(query, TestContext.Current.CancellationToken));
         Assert.Same(thrownException, caughtEx);
     }
 
