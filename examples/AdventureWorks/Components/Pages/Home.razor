@@ -12,7 +12,7 @@
 <PageTitle>@Entity</PageTitle>
 
 <FluentStack VerticalAlignment="VerticalAlignment.Center">
-    <FluentLabel Typo="Typography.PageTitle" Color="Color.Accent">@Entity</FluentLabel>
+    <h2 style="color: @(SystemColors.Brand.Foreground1);">@Entity</h2>
     <FluentStack HorizontalAlignment="HorizontalAlignment.End">
         <FluentSwitch @bind-Value="@Virtualize" Disabled="@(Entity is null)" Label="Virtualize" />
     </FluentStack>

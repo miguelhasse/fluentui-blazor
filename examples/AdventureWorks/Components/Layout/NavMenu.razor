@@ -11,7 +11,7 @@
             <FluentNavCategory Title="@schema.Key" IconRest="@(new Icons.Regular.Size20.TableMultiple())">
             @foreach (var entity in schema)
             {
-                <FluentNavItem Href="@($"/?entity={entity.Key}.{entity.Value}")" IconRest="@(new Icons.Regular.Size20.Table())">@entity.Value</FluentNavItem>
+                <FluentNavItem Href="@($"/?entity={entity.Key}.{entity.Value}")">@entity.Value</FluentNavItem>
             }
             </FluentNavCategory>
         }
