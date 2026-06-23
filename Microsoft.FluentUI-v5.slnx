@@ -1,9 +1,6 @@
 <Solution>
   <Folder Name="/eng/" />
-  <Folder Name="/examples/">
-    <Project Path="examples/AdventureWorks/FluentUI.AdventureWorks.Server.csproj" />
-    <Project Path="examples/TripPin/FluentUI.TripPin.Client.csproj" />
-  </Folder>
+  <Folder Name="/examples/" />
   <Folder Name="/examples/demo/">
     <Project Path="examples/Demo/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj" />
     <Project Path="examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" />
@@ -20,8 +17,10 @@
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
   </Folder>
   <Folder Name="/examples/samples/">
+    <Project Path="examples/AdventureWorks/FluentUI.AdventureWorks.Server.csproj" />
     <Project Path="examples/Samples/FluentUI.Samples.SSR/FluentUI.Samples.SSR.csproj" />
     <Project Path="examples/Samples/FluentUI.Samples.WasmStandalone/FluentUI.Samples.WasmStandalone.csproj" />
+    <Project Path="examples/TripPin/FluentUI.TripPin.Client.csproj" />
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Charts/">
