@@ -1325,6 +1325,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // If Virtualize is true but we don't have a reference to the component yet,
             // it means we're still in the first render. The Virtualize component will call us when it's ready,
             // so we can just wait for that instead of trying to load data now.
+            _pendingDataLoadCancellationTokenSource = null;
+            thisLoadCts.Dispose();
             Loading = false;
             StateHasChanged();
             return;
@@ -1493,7 +1495,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                     var totalItemCount = await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
                     request.CancellationToken.ThrowIfCancellationRequested();
 
-                    if (request.Count > 0)
+                    if (!request.Count.HasValue || request.Count.Value > 0)
                     {
                         resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
                         request.CancellationToken.ThrowIfCancellationRequested();
